@@ -1,135 +1,86 @@
-import {useState} from 'react'
-import React from 'react';
+import {v4 as uuidv4} from 'uuid';
+import {useState} from 'react';
 import './App.css';
-import Header from './Components/Header';
-import TabItem from './Components/Tabitems';
-import ProjectItem from './Components/Projectitems' 
+import Contact from './conatct';
 
-
-const tabsList = [
-
-  {tabId:'STATIC', displayText:'Static'},
-  {tabId:'RESPONSIVE', displayText:'Responsive'},
-  {tabId:'DYNAMIC', displayText:'Dynamic'}
-];
-
-const projectsList = [
+const initialContactsList = [
   {
-    projectId: 0,
-    category: 'STATIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-s3-img.png',
-    title: 'Music Page',
-    description:
-      'The music page enables the users to browse through the images of all-time favorite music albums.',
+    id: uuidv4(), 
+    name: 'Ram',
+    mobileNo: 9999988888,
+    isFavorite: false,
   },
   {
-    projectId: 1,
-    category: 'STATIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-s4-img.png',
-    title: 'Tourism Website',
-    description:
-      'A tourism website enables the user to browse through the images of popular destinations.',
+    id: uuidv4(), 
+    name: 'Pavan',
+    mobileNo: 8888866666,
+    isFavorite: true,
   },
   {
-    projectId: 2,
-    category: 'STATIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-s1-img.png',
-    title: 'Advanced Technologies',
-    description:
-      'A website that gives you a basic understanding of Advanced Technologies.',
+    id: uuidv4(),
+    name: 'Nikhil',
+    mobileNo: 9999955555,
+    isFavorite: false,
   },
-  {
-    projectId: 4,
-    category: 'RESPONSIVE',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-r4-img.png',
-    title: 'VR Website',
-    description:
-      'VR Website enables users to explore AR and VR Products and Industry happenings.',
-  },
-  {
-    projectId: 5,
-    category: 'RESPONSIVE',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-r2-img.png',
-    title: 'Food Munch',
-    description: 'Food Much Website is a user-centric food tech website.',
-  },
-  {
-    projectId: 6,
-    category: 'RESPONSIVE',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-r3-img.png',
-    title: 'Portfolio',
-    description:
-      'A portfolio is the best alternative for a resume to showcase your skills to the digital world.',
-  },
-
-  {
-    projectId: 8,
-    category: 'DYNAMIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-d3-img.png',
-    title: 'Speed Typing Test',
-    description:
-      'Speed Typing Test Application is capable of calculating the time to type the randomly generated quote.',
-  },
-  {
-    projectId: 9,
-    category: 'DYNAMIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-d1-img.png',
-    title: 'Random Joke Page',
-    description:
-      'Random Joke Page is an API-based dynamic Web Application that generates a new joke.',
-  },
-  {
-    projectId: 10,
-    category: 'DYNAMIC',
-    imageURL: 'https://assets.ccbp.in/frontend/react-js/projects-d2-img.png',
-    title: 'Sizing An Image',
-    description:
-      'This is a dynamic web application capable of adjusting the size of an element using DOM manipulations.',
-  },
-
 ]
 
 
 function App() {
 
-  const [activeTabId, setActiveTabId] = useState(tabsList[0].tabId);
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [contactsList, setContactList] = useState(initialContactsList) //initial contact list 
 
-  const updateActiveTabId = tabId =>{
-    setActiveTabId(tabId)
+  const addBtn = (e)=>{
+    e.preventDefault();
+
+    const newContact = {
+      id:uuidv4(),
+      name: name,
+      mobileNo: mobile,
+      isFavorite: false,
+    }
+
+    setContactList([...contactsList, newContact]);
+    setName("")
+    setMobile("")
   }
 
-  const filteredProjects = projectsList.filter(eachProject=> eachProject.category === activeTabId);
-
- 
+  const toggleIsFavorite = contactId=>{
+    setContactList((prevState)=>(
+      prevState.map((eachContact)=>eachContact.id === contactId ? {...eachContact, isFavorite: !eachContact.isFavorite}:eachContact)
+    ))
+  }
+  
 
   return (
-    <>
-    <Header />
     <div className="App">
-      <h1>Projects</h1>
-      <p className='para'>Your skilss and achivements showcase your strength and abilities. apeak about any new skills or software you learnt to perform the project responsbilities.</p>
-      <ul className='tabs-container'>
-        {tabsList.map((eachTab)=>(
-          <TabItem 
-          key={eachTab.tabId}
-          tabDetails = {eachTab}
-          updateTabId={updateActiveTabId}
-          isActive = {activeTabId === eachTab.tabId} 
+      <h1>Contacts</h1>
+      <div className='d-flex justify-content-between p-3'>
+        <input type='text' placeholder='Name' className='form-control p-3 m-1' onChange={((e)=>setName(e.target.value))} value={name}/>
+        <input type='text' placeholder='Mobile Number' className='form-control p-3 m-1' onChange={((e)=>setMobile(e.target.value))} value={mobile}/>
+        <button type='button' className='btn btn-primary m-1' onClick={addBtn}>Add Number</button>
+
+      </div>
+      <ul className='contacts-table p-3'>
+        <li className='table-header p-2'>
+          <p className='table-header-cell name-column'>Name</p>
+          <hr className='seperator'/>
+          <p className='table-header-cell'>Mobile Number</p>
+          
+        </li>
+        <ul>
+        { contactsList.map(eachContact=>(
+          <Contact
+          contactDetails={eachContact}
+          key={eachContact.id}
+          isToggle={toggleIsFavorite}
           />
         ))}
-      </ul>
-      <ul className='project-container'>
-          {filteredProjects.map((eachProject)=>(
-            <ProjectItem
-            key={eachProject.projectId}
-            projectDetails={eachProject}
-            
-            />
-          ))}
+        </ul>
+      
       </ul>
     </div>
-    </>
-    
   );
 }
 

@@ -12,94 +12,76 @@ code {
     monospace;
 }
 
-h1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 30px;
-  font-weight: 700;
-  background: linear-gradient(rgb(53, 47, 10), rgb(99, 99, 151));
+.contacts-table{
+  padding-left: 0;
+  margin-top: 48px;
 }
 
-p {
+.table-header{
   display: flex;
-  flex-direction: column;
-  margin: 50px;
-  padding: 30px;
-}
-
-.nav-menu {
+  background-color: #f1f5f9;
   list-style-type: none;
+  border: 1px soild #cbd5e1;
+}
+
+.table-header-cell{
+  color: #334155;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 32px;
+
+}
+
+.name-column{
+  width: 33%;
+  border-right: none;
+}
+
+.seperator{
+  margin: 0;
+  border: 1px solid #cbd5e1;
+}
+
+.table-row{
   display: flex;
-}
-
-.social-network-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 20px;
-  margin: 5px;
-}
-
-.nav-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px;
-}
-
-.website-logo {
-  color: #3423d4;
-  border: 1px solid blue;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 10px;
-}
-
-.tabs-container {
   list-style-type: none;
+  border-left: 1px soild #cbd5e1;
+  border-bottom: 1px soild #cbd5e1;
+  border-right: 1px soild #cbd5e1;
+}
+
+.table-cell{
+  color: #1e293b;
+  font-family: "Roboto";
+  font-size: 32px;
+  margin-left:32px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-
+  align-items: center;
 }
 
-.tab-item-container {
-  margin: 10px;
-  padding: 10px;
-  cursor: pointer;
-
+.name-column{
+  width: 33%;
+  height: 10vh;
 }
 
-.tab-btn {
-  background: none;
+.mobile-no-column{
+  flex-grow: 1;
+}
+.mobile-no-value{
+  flex-grow: 1;
+}
+.favorite-icon-container{
+  background: transparent;
+  outline: none;
   border: none;
-  color: grey;
-  font-size: 30px;
-  font-weight: 700;
+  cursor: pointer;
 }
 
-.active-tab {
-  border-bottom: 5px solid rgb(58, 58, 141);
-  background-color: #c9c7dc;
-  border-radius: 20px;
-}
-
-.project-container {
-  list-style-type: none;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow: hidden;
-  min-height: 2px;
-  min-width: 3px;
-}
-
-.card-container {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  list-style-type: none;
-  overflow: hidden;
+.favorite-icon{
+  background: transparent;
+  margin-right: 24px;
+  align-self: center;
+  border: none;
+  outline: none;
 }
